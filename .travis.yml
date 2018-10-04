@@ -51,9 +51,15 @@ script:
 - export root=$(pwd)
 - ./mvnw
 - ./gradlew :composeUp   -Pprofile=maven
+- echo '[]' | http post :8081/app/order
+- echo '["ololo"]' | http post :8081/app/order
+- echo '["ololo", "trololo"]' | http post :8081/app/order
 - ./gradlew :composeDown -Pprofile=maven
 - ./gradlew
 - ./gradlew :composeUp
+- echo '[]' | http post :8081/app/order
+- echo '["ololo"]' | http post :8081/app/order
+- echo '["ololo", "trololo"]' | http post :8081/app/order
 - ./gradlew :composeDown
 
 before_deploy:
@@ -76,7 +82,7 @@ deploy:
 
 before_cache:
 - for item in $(find ~/.gradle -name "*.lock");
-  do sudo rm -rf $item ;
+    do sudo rm -rf $item ;
   done
 
 cache:
