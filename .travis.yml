@@ -76,7 +76,7 @@ deploy:
 
 before_cache:
 - for item in $(find ~/.gradle -name "*.lock");
-    do sudo rm -rf $item ;
+  do sudo rm -rf $item ;
   done
 
 cache:

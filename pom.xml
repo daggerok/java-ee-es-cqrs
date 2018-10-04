@@ -13,11 +13,34 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>./order/command</module>
-    <module>./order/query</module>
-    <module>./inventory/order-items-reservation</module>
-    <module>./inventory/shipment</module>
+    <module>./modules/event-producer</module>
+    <module>./modules/exception-mapper</module>
+    <module>./modules/health-resource</module>
+    <module>./apps/order/command</module>
+    <module>./apps/order/query</module>
+    <module>./apps/inventory/order-items-reservation</module>
+    <module>./apps/inventory/shipment</module>
   </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.github.daggerok</groupId>
+        <artifactId>health-resource</artifactId>
+        <version>${version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.daggerok</groupId>
+        <artifactId>event-producer</artifactId>
+        <version>${version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.daggerok</groupId>
+        <artifactId>exception-mapper</artifactId>
+        <version>${version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -40,6 +63,13 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>${javaee.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
     <!--
     <dependency>
       <groupId>org.webjars</groupId>
@@ -53,10 +83,29 @@
     </dependency>
     -->
 
+    <!-- In java we trust -->
     <dependency>
       <groupId>io.vavr</groupId>
       <artifactId>vavr</artifactId>
       <version>${vavr.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <optional>true</optional>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-jdk14</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
 
     <!-- assertj -->
