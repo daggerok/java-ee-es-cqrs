@@ -49,8 +49,8 @@ before_install:
 
 script:
 - export root=$(pwd)
-- bash mvnw >/dev/null
-- bash gradlew >/dev/null
+- ./mvnw
+- ./gradlew
 
 before_deploy:
 - cd ${root}
