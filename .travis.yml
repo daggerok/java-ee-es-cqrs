@@ -50,12 +50,16 @@ before_install:
 script:
 - export root=$(pwd)
 - ./mvnw
+- ./gradlew :composeUp   -Pprofile=maven
+- ./gradlew :composeDown -Pprofile=maven
 - ./gradlew
+- ./gradlew :composeUp
+- ./gradlew :composeDown
 
 before_deploy:
 - cd ${root}
-#- ./gradlew documentation
 - ./mvnw -Pdocs
+#- ./gradlew documentation
 - mkdir -p ./target/generated-docs
 - cp -Rf ./target/generated-docs/index.html ./target/generated-docs/404.html
 
