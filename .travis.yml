@@ -1,0 +1,82 @@
+notifications:
+  email: false
+
+env:
+  global:
+  - TERM=dumb
+  - secure: D95dlqYFh31T9qulqsCGaOdWSnNjiL7IXBD9dPC9LQGjjZu5jIIpxLP5/D+59Mn7AVekH4mFUdLArjFcDLopY1e5PmogxonqA/TqYHHOHWJbu61XKpyPNhS5La8O7KR9pJUY4cw3MCvbsf9uPC6qaC5bBtjwRbys6d2zKv3wX/aLlnJLqj7+ZGiI4ND3ujYTjNZTnptfYQ1RccdbKMr9O2hF+1x71I4+inFowCsgOlTiNqDmE7m5PYcE5O2wp0Dx0T6PmCyPgiTcfZ7p1/C8jTl057GPU/nhnmhiullrJXSEEbshXNfkZWyZJnvznEduAYzRUcKcpTJ/rx13O7oqLIGFLzUJCCBhUOLfAdxNtRyXGAbIJYNL0kOxYLi9dFKfIzp1omb4LN4ShXUy+2uKvmo0unHcaBGcgxah1bE6AKXKn2fbOjwimgPi8C518c6qKeSmCfW5Hql4tBnTLndqBSc/eFfVjPJjalVJnRhIk8wBnCjFY8s1FmuHdS6E4VXUPOVk0F8OeIILJZYqJSBc6jqesgiuk9UB+EQoxCIpS38PUDlJ0kW6NUQMqkIhGmO+OEfkc9Z2GpFxN7nP2acgYqwmCUweW3ccL6vasD3OLrt00nTkflrr76gVNbfxY+vbVYqakyaX6pN/3yl+sQ+iG2zzklr2K9rP1GfcCBJfqMk=
+
+language: java
+jdk: oraclejdk8
+
+service:
+- docker
+
+addons:
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
+    - libappindicator1
+    - fonts-liberation
+    - bash
+    - curl
+    - libxml2-utils
+    - docker-ce
+
+install: true
+before_install:
+- export CHROME_BIN=/usr/bin/google-chrome
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+#
+- sudo add-apt-repository universe -y >/dev/null
+- echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list >/dev/null
+- sudo apt-get update -yqq >/dev/null
+- sudo apt-get install -yqq --no-install-suggests --no-install-recommends
+  tree jq python-pip curl bash sudo >/dev/null
+#
+- sudo pip install docker-compose httpie >/dev/null 2>&1
+#
+- source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
+- stop_any 8080 3000 80 >/dev/null
+#
+- curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - >/dev/null
+- echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list >/dev/null
+- sudo apt-get update -yqq >/dev/null
+- sudo apt-get install -yqq --no-install-suggests --no-install-recommends yarn >/dev/null
+
+script:
+- export root=$(pwd)
+- bash mvnw >/dev/null
+- bash gradlew >/dev/null
+
+before_deploy:
+- cd ${root}
+#- ./gradlew documentation
+- ./mvnw -Pdocs
+- mkdir -p ./target/generated-docs
+- cp -Rf ./target/generated-docs/index.html ./target/generated-docs/404.html
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  # travis encrypt GITHUB_TOKEN=<your github repo token> --add
+  github-token: "$GITHUB_TOKEN"
+  keep-history: true
+  on:
+    branch: master
+  local-dir: target/generated-docs
+  target_branch: gh-pages
+
+before_cache:
+- for item in $(find ~/.gradle -name "*.lock");
+    do sudo rm -rf $item ;
+  done
+
+cache:
+  directories:
+  - $HOME/.m2
+  - $HOME/.gradle
+  - $HOME/.docker
