@@ -15,19 +15,29 @@
   </parent>
 
   <name>${project.parent.artifactId}:${project.artifactId}</name>
-  <artifactId>event-producer</artifactId>
+  <artifactId>config</artifactId>
   <packaging>jar</packaging>
 
   <dependencies>
     <dependency>
-      <groupId>com.github.daggerok</groupId>
-      <artifactId>config</artifactId>
+      <groupId>javax.json</groupId>
+      <artifactId>javax.json-api</artifactId>
+      <version>${json.api.version}</version>
     </dependency>
-
     <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.json</artifactId>
+      <version>${json.version}</version>
+    </dependency>
+    <!--<dependency>
       <groupId>org.apache.kafka</groupId>
-      <artifactId>kafka-clients</artifactId>
+      <artifactId>connect-json</artifactId>
       <version>${kafka.version}</version>
+    </dependency>-->
+    <dependency>
+      <groupId>org.eclipse</groupId>
+      <artifactId>yasson</artifactId>
+      <version>${yasson.version}</version>
     </dependency>
   </dependencies>
 

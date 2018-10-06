@@ -4,6 +4,18 @@
 
 Read link:https://daggerok.github.io/java-ee-es-cqrs[project reference documentation]
 
+.to build and bootstrap all services, udse command:
+[source,bash]
+----
+./gradlew :composeDown; ./gradlew clean ass :composeUp
+----
+
+.to run kafka only by using docker-compose, run:
+[source,bash]
+----
+docker-compose -f docker-compose.yaml run kafka
+----
+
 .build
 [source,bash]
 ----

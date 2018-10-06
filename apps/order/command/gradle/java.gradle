@@ -31,7 +31,7 @@ allprojects {
     implementation project(':modules:exception-mapper')
     implementation project(':modules:event-producer')
 
-    implementation 'javax.json:javax.json-api:1.0'
-    implementation 'org.glassfish:javax.json:1.0.4'
+    implementation "javax.json:javax.json-api:$jsonApiVersion"
+    implementation "org.glassfish:javax.json:$jsonVersion"
   }
 }

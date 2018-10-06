@@ -1,30 +1,28 @@
 version: '2.1'
 services:
-  #  kafka:
-  #    image: daggerok/kafka:spring-cloud-cli
-  #    restart: unless-stopped
-  #    environment:
-  #      ZOOKEEPER_PORT: 2181
-  #      KAFKA_PORT: 9092
-  #    ports:
-  #    - '2181:2181'
-  #    - '9092:9092'
-  #    volumes: ['kafka-data:/root']
-  #    networks:
-  #      backing-services:
-  #        aliases:
-  #        - k
-  #        - kafka
-  #        - kafka.daggerok.com
+  kafka:
+    image: daggerok/kafka
+    restart: unless-stopped
+    environment:
+      ZOOKEEPER_PORT: 2181
+      KAFKA_PORT: 9092
+    ports:
+    - '2181:2181'
+    - '9092:9092'
+    networks:
+      backing-services:
+        aliases:
+        - k
+        - kafka
+        - kafka.daggerok.com
   order-command:
-    #    depends_on:
-    #      kafka:
-    #        condition: service_healthy
+    depends_on:
+      kafka:
+        condition: service_healthy
     build:
       context: ./apps/order/command
       dockerfile: .mvn/Dockerfile
     restart: unless-stopped
-    volumes: ['order-command-data:/home']
     ports: ['8081:8080']
     networks:
       backing-services:
@@ -40,7 +38,6 @@ services:
 #      context: ./apps/order/query
 #      dockerfile: .mvn/Dockerfile
 #    restart: unless-stopped
-#    volumes: ['order-query-data:/home']
 #    ports: ['8082:8080']
 #    networks:
 #      backing-services:
@@ -55,7 +52,6 @@ services:
 #    build:
 #      context: ./apps/inventory/order-items-reservation
 #      dockerfile: .mvn/Dockerfile
-#    volumes: ['inventory-order-items-reservation-data:/home/']
 #    ports: ['8083:8080']
 #    networks:
 #      backing-services:
@@ -70,7 +66,6 @@ services:
 #    build:
 #      context: ./apps/inventory/shipment
 #      dockerfile: .mvn/Dockerfile
-#    volumes: ['inventory-shipment-data:/home/']
 #    ports: ['8084:8080']
 #    #mem_limit: 209715200 # container limit: 200Mb (200 * 1024 * 1024)
 #    networks:
@@ -79,12 +74,6 @@ services:
 #        - is
 #        - inventory-shipment
 #        - inventory-shipment.daggerok.com
-volumes:
-  kafka-data: {}
-  order-command-data: {}
-  order-query-data: {}
-  inventory-order-items-reservation-data: {}
-  inventory-shipment-data: {}
 networks:
   backing-services:
     driver: bridge
