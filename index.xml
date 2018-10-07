@@ -4,7 +4,7 @@
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>java-ee-es-cqrs (0.0.1)</title>
-<date>2018-10-07 15:02:29 UTC</date>
+<date>2018-10-07 16:31:32 UTC</date>
 <author>
 <personname>
 <firstname>Maksim</firstname>
@@ -16,7 +16,7 @@
 <revhistory>
 <revision>
 <revnumber>0.0.1</revnumber>
-<date>2018-10-07 15:02:29 UTC</date>
+<date>2018-10-07 16:31:32 UTC</date>
 <authorinitials>MK</authorinitials>
 </revision>
 </revhistory>
@@ -32,13 +32,29 @@
 </para>
 </formalpara>
 <formalpara>
-<title>to run kafka only by using docker-compose, run:</title>
+<title>gradle</title>
 <para>
-<programlisting language="bash" linenumbering="unnumbered">docker-compose -f docker-compose.yaml run kafka</programlisting>
+<programlisting language="bash" linenumbering="unnumbered">docker-compose down -v --rmi local; ./gradlew
+echo '["ololo","trololo"]' | http post :8081/app/orde
+docker-compose up -V --always-recreate-deps</programlisting>
 </para>
 </formalpara>
 <formalpara>
-<title>build</title>
+<title>maven</title>
+<para>
+<programlisting language="bash" linenumbering="unnumbered">docker-compose -f docker-compose-maven.yaml down -v --rmi local ;./mvnw
+docker-compose -f docker-compose-maven.yaml up -V --always-recreate-deps
+echo '["ololo","trololo"]' | http post :8081/app/order</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>to run kafka only by using docker-compose, run:</title>
+<para>
+<programlisting language="bash" linenumbering="unnumbered">docker-compose run kafka</programlisting>
+</para>
+</formalpara>
+<formalpara>
+<title>build (no!)</title>
 <para>
 <programlisting language="bash" linenumbering="unnumbered">./mvnw clean package docker-compose:up -P docker
 ./mvnw docker-compose:down -P docker
