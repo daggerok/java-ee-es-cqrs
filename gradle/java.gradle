@@ -15,12 +15,8 @@ allprojects {
   lombok.version = project.lombokVersion
 
   dependencies {
-    // In java we trust...
+    compileOnly "javax:javaee-api:$javaeeVersion"
     implementation "io.vavr:vavr:$vavrVersion"
     implementation "org.slf4j:slf4j-api:$slf4jVersion"
-    implementation "org.slf4j:slf4j-jdk14:$slf4jVersion"
-
-    runtime "javax:javaee-api:$javaeeVersion"
-    compileOnly "javax:javaee-api:$javaeeVersion"
   }
 }

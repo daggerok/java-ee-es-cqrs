@@ -1,5 +1,5 @@
 dependencies {
-  implementation "javax.json:javax.json-api:$jsonApiVersion"
-  implementation "org.glassfish:javax.json:$jsonVersion"
-  implementation "org.eclipse:yasson:$yassonVersion"
+  compile "org.glassfish:javax.json:$jsonVersion"
+  compile "org.eclipse:yasson:$yassonVersion"
+  compile "org.jboss.spec.javax.json:jboss-json-api_1.1_spec:$jbossJsonVersion"
 }

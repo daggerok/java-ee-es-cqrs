@@ -9,7 +9,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,9 +39,9 @@ public class OrderResource {
 
     eventProducer.fire("orders", uuid.toString(), stringify(event));
 
-    return Response.created(uriInfo.getBaseUriBuilder()
-                                   .path("order/{uuid}")
-                                   .build(uuid))
+    final URI uri = uriInfo.getBaseUri();
+    return Response.created(UriBuilder.fromUri("{scheme}://{host}:{port}/app/order/{uuid}")
+                                      .build(uri.getScheme(), uri.getHost(), uri.getPort() + 1, uuid))
                    .build();
   }
 }

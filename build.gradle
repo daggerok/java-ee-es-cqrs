@@ -1,6 +1,8 @@
 buildscript {
   ext {
     kafkaVersion = '1.0.2'
+    jbossJsonVersion = '1.0.0.Final'
+    javaxJsonVersion = '1.1'
     jsonApiVersion = '1.1.2'
     jsonVersion = '1.0.4'
     yassonVersion = '1.0.1'

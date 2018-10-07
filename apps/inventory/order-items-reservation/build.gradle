@@ -1,7 +1,0 @@
-apply from: "$projectDir/gradle/ide.gradle"
-apply from: "$projectDir/gradle/clean.gradle"
-apply from: "$projectDir/gradle/java.gradle"
-apply from: "$projectDir/gradle/junit.gradle"
-apply from: "$projectDir/gradle/jacoco.gradle"
-apply from: "$projectDir/gradle/findbugs.gradle"
-apply from: "$projectDir/gradle/docker-compose.gradle"
