@@ -16,6 +16,5 @@
 
   <name>${project.parent.artifactId}:${project.artifactId}</name>
   <artifactId>exception-mapper</artifactId>
-  <packaging>jar</packaging>
 
 </project>

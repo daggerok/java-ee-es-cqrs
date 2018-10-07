@@ -16,6 +16,5 @@
 
   <name>${project.parent.artifactId}:${project.artifactId}</name>
   <artifactId>health-resource</artifactId>
-  <packaging>jar</packaging>
 
 </project>

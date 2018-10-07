@@ -1,9 +1,9 @@
 version: '2.1'
 services:
   kafka:
-#    image: daggerok/kafka:v24
+    #image: daggerok/kafka:spring-cloud-cli-v24
+    #image: daggerok/kafka:v24
     image: daggerok/kafka:v10
-#    image: daggerok/kafka:spring-cloud-cli-v24
     restart: unless-stopped
     environment:
       ZOOKEEPER_PORT: 2181

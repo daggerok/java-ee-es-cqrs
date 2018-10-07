@@ -24,25 +24,38 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- apps -->
+      <!--<dependency>
+        <groupId>com.github.daggerok</groupId>
+        <artifactId>order-items-reservation</artifactId>
+        <version>${project.version}</version>
+        <scope>compile</scope>
+        <type>war</type>
+      </dependency>
       <dependency>
         <groupId>com.github.daggerok</groupId>
-        <artifactId>command</artifactId>
+        <artifactId>shipment</artifactId>
         <version>${project.version}</version>
+        <scope>compile</scope>
+        <type>war</type>
       </dependency>
       <dependency>
         <groupId>com.github.daggerok</groupId>
         <artifactId>query</artifactId>
         <version>${project.version}</version>
+        <scope>compile</scope>
+        <type>war</type>
       </dependency>
       <dependency>
         <groupId>com.github.daggerok</groupId>
-        <artifactId>order-items-reservation</artifactId>
+        <artifactId>event-consumer</artifactId>
         <version>${project.version}</version>
-      </dependency>
+        <scope>compile</scope>
+        <type>war</type>
+      </dependency>-->
+      <!-- apps -->
       <dependency>
         <groupId>com.github.daggerok</groupId>
-        <artifactId>shipment</artifactId>
+        <artifactId>command</artifactId>
         <version>${project.version}</version>
       </dependency>
       <!-- modules -->
@@ -63,11 +76,6 @@
       </dependency>
       <dependency>
         <groupId>com.github.daggerok</groupId>
-        <artifactId>event-consumer</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.github.daggerok</groupId>
         <artifactId>exception-mapper</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -82,7 +90,7 @@
         <groupId>org.apache.kafka</groupId>
         <artifactId>kafka-clients</artifactId>
         <version>1.0.2</version>
-        <scope>provided</scope>
+        <scope>compile</scope>
       </dependency>
       <dependency>
         <groupId>io.vavr</groupId>
