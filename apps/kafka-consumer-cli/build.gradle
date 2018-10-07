@@ -1,0 +1,54 @@
+buildscript {
+  ext {
+    javaVersion = JavaVersion.VERSION_1_8
+    lombokVersion = '1.18.2'
+    logbackVersion = '1.2.3'
+    slf4jVersion = '1.7.25'
+    vavrVersion = '0.9.2'
+
+    junitPlatformVersion = '1.3.0'
+    junitJupiterVersion = '5.3.1'
+    assertjVersion = '3.11.0'
+    jgivenVersion = '0.15.3'
+    hamcrestVersion = '1.3'
+    allureVersion = '2.6.0'
+    junit4Version = '4.12'
+  }
+
+  dependencies {
+    classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
+    classpath 'org.jruby:jruby-complete:9.1.13.0'
+  }
+}
+
+plugins {
+  id 'com.github.johnrengelman.shadow' version '4.0.1' apply false
+}
+
+allprojects {
+  apply plugin: 'java'
+
+  apply plugin: 'io.franzbecker.gradle-lombok'
+  lombok.version = project.lombokVersion
+
+  version = '0.0.1'
+  group = 'com.github.daggerok'
+  sourceCompatibility = targetCompatibility = "$javaVersion"
+
+  defaultTasks 'clean', 'build'
+
+  dependencies {
+    compile project(':modules:config')
+    compile "org.apache.kafka:kafka-clients:$kafkaVersion"
+    implementation "ch.qos.logback:logback-classic:$logbackVersion"
+  }
+}
+
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+mainClassName = 'daggerok.App'
+shadowJar.mustRunAfter jar
+defaultTasks 'clean', 'build', 'installDist', 'distZip', 'publish'
+
+apply from: "$rootDir/gradle/junit.gradle"

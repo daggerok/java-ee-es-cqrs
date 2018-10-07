@@ -28,7 +28,7 @@ services:
       dockerfile: gradle/Dockerfile
     restart: unless-stopped
     ports:
-    - '5006:5005'
+    - '5005:5005'
     - '8081:8080'
     networks:
       backing-services:

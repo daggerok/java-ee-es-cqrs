@@ -28,30 +28,37 @@ public class Producers {
     }).getOrElseGet(throwable -> properties);
   }
 
-  private static BiFunction<String, Object, Object> getConfigOrDefault = (key, defaultValue) -> {
+  private static BiFunction<String, String, String> getEnvOrDefault = (key, defaultValue) -> {
     Objects.requireNonNull(key, "key.null");
     Objects.requireNonNull(defaultValue, "defaultValue.null");
 
-    final Object envValue = System.getenv().getOrDefault(key, "" + defaultValue);
+    final String envValue = System.getenv().getOrDefault(key, defaultValue);
     if (!envValue.equals(defaultValue)) return envValue;
 
-    final Object systemValue = System.getProperty(key, "" + defaultValue);
+    final String systemValue = System.getProperty(key, defaultValue);
     if (!systemValue.equals(defaultValue)) return systemValue;
 
-    return kafkaProperties.getProperty(key, "" + defaultValue);
+    return defaultValue;
   };
 
-  public static <EVENT> String stringify(final EVENT event) {
-    return JsonbBuilder.create().toJson(event);
+  private static BiFunction<String, Object, Object> getConfigOrDefault = (key, defaultValue) -> {
+    final String string = Try.of(() -> (String) defaultValue).getOrElseGet(null);
+    final String value = getEnvOrDefault.apply(key, string);
+    return kafkaProperties.getProperty(key, value);
+  };
+
+  @Produces
+  public Properties kafkaProperties() {
+    return kafkaProperties;
+  }
+
+  @Produces
+  public BiFunction<String, String, String> getEnvOrDefault() {
+    return getEnvOrDefault;
   }
 
   @Produces
   public BiFunction<String, Object, Object> getConfigOrDefault() {
     return getConfigOrDefault;
-  }
-
-  @Produces
-  public Properties kafkaProperties() {
-    return kafkaProperties;
   }
 }
