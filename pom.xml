@@ -15,7 +15,7 @@
   <modules>
     <module>./modules/config</module>
     <module>./modules/event-producer</module>
-    <!--<module>./modules/event-consumer</module>-->
+    <module>./modules/event-consumer</module>
     <module>./modules/exception-mapper</module>
     <module>./modules/health-resource</module>
     <module>./apps/order/command</module>

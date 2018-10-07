@@ -20,9 +20,9 @@ services:
         - kafka
         - kafka.daggerok.com
   order-command:
-    depends_on:
-      kafka:
-        condition: service_healthy
+    #depends_on:
+    #  kafka:
+    #    condition: service_healthy
     build:
       context: ./apps/order/command
       dockerfile: gradle/Dockerfile
@@ -37,9 +37,9 @@ services:
         - order-command
         - order-command.daggerok.com
 #  order-query:
-#    depends_on:
-#      kafka:
-#        condition: service_healthy
+#    #depends_on:
+#    #  kafka:
+#    #    condition: service_healthy
 #    build:
 #      context: ./apps/order/query
 #      dockerfile: gradle/Dockerfile
@@ -54,9 +54,9 @@ services:
 #        - order-query
 #        - order-query.daggerok.com
 #  inventory-order-items-reservation:
-#    depends_on:
-#      kafka:
-#        condition: service_healthy
+#    #depends_on:
+#    #  kafka:
+#    #    condition: service_healthy
 #    build:
 #      context: ./apps/inventory/order-items-reservation
 #      dockerfile: gradle/Dockerfile
@@ -68,9 +68,9 @@ services:
 #        - inventory-order-items-reservation
 #        - inventory-order-items-reservation.daggerok.com
 #  inventory-shipment:
-#    depends_on:
-#      kafka:
-#        condition: service_healthy
+#    #depends_on:
+#    #  kafka:
+#    #    condition: service_healthy
 #    build:
 #      context: ./apps/inventory/shipment
 #      dockerfile: gradle/Dockerfile
