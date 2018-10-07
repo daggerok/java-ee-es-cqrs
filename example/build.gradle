@@ -23,7 +23,7 @@ subprojects {
         testCompile "org.mockito:mockito-all:$mockitoVersion"
         testCompile "org.hamcrest:hamcrest-all:$hamcrestVersion"
         testCompile "org.eclipse:yasson:$yassonVersion"
-        testCompile "org.glassfish:javax.json:$glassfishJsonVersion"
+        testCompile "org.glassfish:javax.json:$jsonVersion"
     }
 
     war {

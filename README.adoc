@@ -12,13 +12,29 @@ Read link:https://daggerok.github.io/java-ee-es-cqrs[project reference documenta
 ./gradlew :composeDown; ./gradlew clean ass :composeUp
 ----
 
+.gradle
+[source,bash]
+----
+docker-compose down -v --rmi local; ./gradlew
+echo '["ololo","trololo"]' | http post :8081/app/orde
+docker-compose up -V --always-recreate-deps
+----
+
+.maven
+[source,bash]
+----
+docker-compose -f docker-compose-maven.yaml down -v --rmi local ;./mvnw
+docker-compose -f docker-compose-maven.yaml up -V --always-recreate-deps
+echo '["ololo","trololo"]' | http post :8081/app/order
+----
+
 .to run kafka only by using docker-compose, run:
 [source,bash]
 ----
-docker-compose -f docker-compose.yaml run kafka
+docker-compose run kafka
 ----
 
-.build
+.build (no!)
 [source,bash]
 ----
 ./mvnw clean package docker-compose:up -P docker

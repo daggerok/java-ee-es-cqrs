@@ -1,4 +1,4 @@
 dependencies {
-  compile(project(':modules:config'))
+  compile project(':modules:config')
   compile "org.apache.kafka:kafka-clients:$kafkaVersion"
 }

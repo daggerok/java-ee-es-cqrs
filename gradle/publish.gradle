@@ -77,30 +77,3 @@ allprojects {
   */
 }
 
-/*
-allprojects {
-  // with shadow plugin
-  publishing {
-    publications {
-      mavenJava(MavenPublication) { publication ->
-        afterEvaluate {
-          project.shadow.component(publication)
-          artifact sourcesJar
-          artifact javadocJar
-          // ...
-        }
-      }
-    }
-  }
-  // without shadow plugin
-  publishing {
-    publications {
-      mavenJava(MavenPublication) ->
-        artifact sourcesJar
-        artifact javadocJar
-      }
-    }
-  }
-  // ...
-}
-*/
